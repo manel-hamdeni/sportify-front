@@ -1,70 +1,96 @@
-# Getting Started with Create React App
+# 🏋️ Sportify — Gym Management Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Modern React frontend for a complete gym management system.
+>
+> 🔗 **Backend Repository:** [salle-sport-backend](https://github.com/manel-hamdeni/salle-sport-backend)
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 About The Project
 
-### `npm start`
+Sportify is a full-featured gym management web application. It allows admins to manage the gym, coaches to track sessions, and clients to subscribe to training sessions — all in one platform.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Tech Stack
 
-### `npm test`
+| Layer | Technology |
+|---|---|
+| Framework | React.js |
+| Language | JavaScript (ES6+) |
+| HTTP Client | Axios |
+| Routing | React Router |
+| State | React Hooks |
+| Styling | CSS3 |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## ✨ Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 🔐 **Authentication** — Register / Login with JWT
+- 👤 **Role-based dashboards** — Admin, Coach, Client, Internaute
+- 📅 **Session Planning** — View, join, and leave gym sessions
+- 💬 **Internal Messaging** — Send and receive messages between users
+- 🔔 **Notifications** — Real-time notification system
+- 🏢 **Gym Info** — View gym details and available coaches
+- 📊 **Admin Statistics** — User and session stats
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Getting Started
 
-### `npm run eject`
+### Prerequisites
+- Node.js v18+
+- Backend running on `http://localhost:5000`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+# Clone the repository
+git clone https://github.com/manel-hamdeni/sportify-front.git
+cd sportify-front
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Install dependencies
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Create .env file
+REACT_APP_API_URL=http://localhost:5000
 
-## Learn More
+# Start the app
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The app will run on `http://localhost:3000`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🔗 Connection with Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This frontend communicates with the [salle-sport-backend](https://github.com/manel-hamdeni/salle-sport-backend) REST API.
 
-### Analyzing the Bundle Size
+Make sure the backend is running before starting the frontend.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+Frontend (React)  ←→  Backend API (Node/Express)  ←→  Database (MongoDB)
+   :3000                    :5000                         Atlas
+```
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 👤 User Roles
 
-### Advanced Configuration
+| Role | Access |
+|---|---|
+| `admin` | Full management — users, planning, gym |
+| `coach` | View sessions and client profiles |
+| `client` | Join sessions, manage subscription |
+| `internaute` | Browse gym info and coaches |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 👩‍💻 Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**Manel Hamdeni** — 3rd Year Fullstack Developer Student @ ISET Zaghouan
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-manel--hamdeni-blue)](https://www.linkedin.com/in/manel-hamdeni-ba0281377/)
+[![GitHub](https://img.shields.io/badge/GitHub-manel--hamdeni-black)](https://github.com/manel-hamdeni)
