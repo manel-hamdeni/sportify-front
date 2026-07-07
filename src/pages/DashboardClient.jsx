@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaCalendarAlt, FaChalkboardTeacher, FaQuestionCircle, FaSignOutAlt, FaUser, FaBell } from 'react-icons/fa';
+import { useAuth } from '../contexts/AuthContext';
 import PlanningPersonnel from '../components/client/PlanningPersonnel';
 import CoachDisponibles from '../components/client/CoachDisponibles';
 import PoserQuestion from '../components/client/PoserQuestion';
 
 const DashboardClient = () => {
   const [activeTab, setActiveTab] = useState('planning');
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   const renderContent = () => {
     switch(activeTab) {
-      case 'planning':
-        return <PlanningPersonnel />;
-      case 'coachs':
-        return <CoachDisponibles />;
-      case 'questions':
-        return <PoserQuestion />;
-      default:
-        return <PlanningPersonnel />;
+      case 'planning': return <PlanningPersonnel />;
+      case 'coachs': return <CoachDisponibles />;
+      case 'questions': return <PoserQuestion />;
+      default: return <PlanningPersonnel />;
     }
   };
 
@@ -32,7 +36,10 @@ const DashboardClient = () => {
             </div>
             <div>
               <p className="text-sm text-gray-500">Bienvenue,</p>
-              <p className="font-semibold text-gray-800">Ahmed Ben Ali</p>
+              {/* Affiche le vrai nom depuis le backend */}
+              <p className="font-semibold text-gray-800">
+                {user ? `${user.prenom} ${user.nom}` : 'Chargement...'}
+              </p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
@@ -40,10 +47,13 @@ const DashboardClient = () => {
               <FaBell className="text-gray-600 text-xl hover:text-blue-600 transition" />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
             </button>
-            <Link to="/" className="flex items-center space-x-2 text-gray-600 hover:text-red-500 transition">
+            <button
+              onClick={handleLogout}
+              className="flex items-center space-x-2 text-gray-600 hover:text-red-500 transition"
+            >
               <FaSignOutAlt />
               <span>Déconnexion</span>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -58,38 +68,17 @@ const DashboardClient = () => {
                 <h3 className="font-bold text-lg">Menu Client</h3>
               </div>
               <nav className="p-3">
-                <button
-                  onClick={() => setActiveTab('planning')}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition mb-2 ${
-                    activeTab === 'planning' 
-                      ? 'bg-blue-50 text-blue-600' 
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <FaCalendarAlt />
-                  <span>Mon Planning</span>
+                <button onClick={() => setActiveTab('planning')}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition mb-2 ${activeTab === 'planning' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'}`}>
+                  <FaCalendarAlt /><span>Mon Planning</span>
                 </button>
-                <button
-                  onClick={() => setActiveTab('coachs')}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition mb-2 ${
-                    activeTab === 'coachs' 
-                      ? 'bg-blue-50 text-blue-600' 
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <FaChalkboardTeacher />
-                  <span>Coachs Disponibles</span>
+                <button onClick={() => setActiveTab('coachs')}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition mb-2 ${activeTab === 'coachs' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'}`}>
+                  <FaChalkboardTeacher /><span>Coachs Disponibles</span>
                 </button>
-                <button
-                  onClick={() => setActiveTab('questions')}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${
-                    activeTab === 'questions' 
-                      ? 'bg-blue-50 text-blue-600' 
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <FaQuestionCircle />
-                  <span>Poser une Question</span>
+                <button onClick={() => setActiveTab('questions')}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'questions' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'}`}>
+                  <FaQuestionCircle /><span>Poser une Question</span>
                 </button>
               </nav>
             </div>

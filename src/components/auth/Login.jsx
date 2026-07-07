@@ -7,23 +7,25 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [role, setRole] = useState('client');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, loading, error } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Simuler connexion avec rôle
-    login(email, password, role);
-    
-    // Redirection selon le rôle
-    if (role === 'client') {
-      navigate('/dashboard/client');
-    } else if (role === 'coach') {
-      navigate('/dashboard/coach');
-    } else if (role === 'admin') {
-      navigate('/dashboard/admin');
+    try {
+      const userData = await login(email, password);
+      // Redirection automatique selon le rôle retourné par le backend
+      if (userData.role === 'client') {
+        navigate('/dashboard/client');
+      } else if (userData.role === 'coach') {
+        navigate('/dashboard/coach');
+      } else if (userData.role === 'admin') {
+        navigate('/dashboard/admin');
+      } else {
+        navigate('/');
+      }
+    } catch (err) {
+      // L'erreur est déjà gérée dans AuthContext
     }
   };
 
@@ -35,21 +37,15 @@ const Login = () => {
           <h2 className="text-3xl font-bold text-gray-800">Connexion</h2>
           <p className="text-gray-500 mt-2">Connectez-vous à votre compte</p>
         </div>
-        
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-2 font-semibold">Rôle (pour test)</label>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
-            >
-              <option value="client">👤 Client</option>
-              <option value="coach">👨‍🏫 Coach</option>
-              <option value="admin">👑 Admin</option>
-            </select>
-          </div>
 
+        {/* Afficher les erreurs du backend */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-xl">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
           <div className="mb-5">
             <label className="block text-gray-700 mb-2 font-semibold">Email</label>
             <div className="relative">
@@ -64,7 +60,7 @@ const Login = () => {
               />
             </div>
           </div>
-          
+
           <div className="mb-6">
             <label className="block text-gray-700 mb-2 font-semibold">Mot de passe</label>
             <div className="relative">
@@ -86,15 +82,16 @@ const Login = () => {
               </button>
             </div>
           </div>
-          
+
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
+            disabled={loading}
+            className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition disabled:opacity-50"
           >
-            Se connecter
+            {loading ? 'Connexion...' : 'Se connecter'}
           </button>
         </form>
-        
+
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             Pas de compte ?{' '}
